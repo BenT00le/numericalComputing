@@ -18,11 +18,26 @@ bool test_TensorConstructor()
     return pass;
 }
 
+bool test_getLeaf()
+{
+    bool pass = false;
+    int* size = {2,2};
+    tree root = tree<int>(leaf, 2, size);
+
+    pass = root.getLeaf({1,1}) == 0; //last element initialixed to 0
+
+    return pass
+}
+
 bool test_getNode()
 {
     bool pass = false;
     int* size = {2,2};
     tree root = tree<int>(leaf, 2, size);
+
+    pass = root.getNode({1});
+
+    return pass
 }
 
 //get element of 3x3
