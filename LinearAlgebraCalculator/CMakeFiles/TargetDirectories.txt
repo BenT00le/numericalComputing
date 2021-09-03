@@ -1,0 +1,3 @@
+/home/parrot/numericalComputing/LinearAlgebraCalculator/CMakeFiles/rebuild_cache.dir
+/home/parrot/numericalComputing/LinearAlgebraCalculator/CMakeFiles/Tutorial.dir
+/home/parrot/numericalComputing/LinearAlgebraCalculator/CMakeFiles/edit_cache.dir

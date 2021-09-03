@@ -1,10 +1,14 @@
 
 #include "Tensor.h"
 #include "tree.cpp"
-int main(int argc char** argv)
+#include "tree.h"
+int main(int argc, char** argv)
 {
-    test_TensorConstructor();
+    tree test = tree(false, 2,{3,3,3});
+
+    
     return 0;
+
 }
 
 bool test_TensorConstructor()
