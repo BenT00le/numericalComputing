@@ -97,6 +97,7 @@ template<class T>
             //last index gets a 0 dim element type T if enough indicies are given
             node.leaves[index[height-1]] = val;
             validindex = true;
+            std::cout<<"insert "<<val<<std::endl;
         }
         return validindex;
 
@@ -124,7 +125,7 @@ int main(int argc, char** argv)
     tree<int> test = tree<int>(false, 2, size);
 
     std::cout<<"test tree 0\n" << test.getLeaf(ind)<<std::endl;
-    for(int i=0,j=0,k=0;i<3;i++,j=0,k=0)
+    for(int i=0,j=0,k=0;i<3;i++,j=0)
     {
         while(j<3)
         {
@@ -141,6 +142,7 @@ int main(int argc, char** argv)
                 << test.getLeaf(ind)<<std::endl;
             k++;
             }
+        k=0;
         j++;
         }
     }
