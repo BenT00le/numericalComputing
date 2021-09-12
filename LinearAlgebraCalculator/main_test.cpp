@@ -24,9 +24,9 @@ bool test_TensorConstructor()
 bool test_getLeaf()
 {
     bool pass = false;
-    int* size = {2,2};
+    int* size[2] = {2,2};
     tree root = tree<int>(leaf, 2, size);
-
+    
     pass = root.getLeaf({1,1}) == 0; //last element initialixed to 0
 
     return pass

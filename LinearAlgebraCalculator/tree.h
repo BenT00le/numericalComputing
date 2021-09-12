@@ -26,7 +26,7 @@ template<class T> class tree
         std::vector<T> leaves; //empty if not leaf
 
     public: 
-        tree<T>(bool leaf, int dim, int* size);
+        tree<T>(int dim, int* size);
 
         /*create from array like
         tree(bool leaf, int dim, int* size, void* elements)*/

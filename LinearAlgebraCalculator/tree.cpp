@@ -18,24 +18,35 @@ template<class T>
     */
 
 
-    tree<T>::tree(bool leaf, int dim, int* size)
+    tree<T>::tree(int dim, int* size)
     {
         height=dim;
-        Leaf = leaf;
+        Leaf = dim==1;
         size = size;
 
         nodes = std::vector<tree<T>>() ;
         leaves = std::vector<T>();
 
+        std::cout<<"create tree\n"
+        <<Leaf<<"\nsize: "
+        <<size[0]<<"\ndim: "
+        <<dim<<std::endl;
+
         for(int i=0;i<size[0];i++)
         {
             if(Leaf)
             {
+                std::cout<<" leaf size: "
+                <<leaves.size()<<" of "
+                <<size[0]<<std::endl;
                 leaves.push_back((T)0);
             }
             else
-            //TODO spawn subtree thread to do this
-            nodes.push_back(tree(dim==1,dim-1,&size[1]));
+            {
+                std::cout<<"\n"<<i<<" make subtree "<<std::endl;
+                //TODO spawn subtree thread to do this
+                nodes.push_back(tree(dim-1,&size[1]));
+            }
         }
 
         //wait for subtree threads
@@ -61,8 +72,10 @@ template<class T>
         tree node = *this;
         int depth=0;
         int i=0;
-        while(index[i+1] != 0 && !node.isleaf())
+        
+        while(i<height && !node.isleaf())
         {
+            //index[i]<size[i]
             node = node.nodes[index[i]];
             i++;
         }
@@ -74,9 +87,13 @@ template<class T>
     T tree<T>::getLeaf(int* index)
     {
         T item = 0;
-        tree node = getNode(index);
+        tree<T> node = getNode(index);
         if(node.isleaf())
         {
+            std::cout<<"\nindex: "<<index[height-1]
+            <<"\nleaves: "<<node.leaves.size()
+            <<"\nitem: "<<node.leaves[index[height-1]]
+            <<std::endl;
             //last index gets a 0 dim element type T if enough indicies are given
             item = node.leaves[index[height-1]];
         }
@@ -106,10 +123,10 @@ template<class T>
     template<class T>
     tree<T> tree<T>::setNode(int* index, tree n)
     {
-        tree node = this;
+        tree node = *this;
         int depth=0;
         int i=0;
-        while(index[i+1] != 0 && !node.isleaf())
+        while(i<height && !node.isleaf())
         {
             node = node.nodes[index[i]];
             i++;
@@ -120,12 +137,12 @@ template<class T>
 
 int main(int argc, char** argv)
 {
-    int size[3] = {3,3,3};
+    int a = 10;
+    int size[3] = {2,3,3};
     int ind[3] = {0,0,0};
-    tree<int> test = tree<int>(false, 2, size);
-
+    tree<int> test = tree<int>(3, size);
     std::cout<<"test tree 0\n" << test.getLeaf(ind)<<std::endl;
-    for(int i=0,j=0,k=0;i<3;i++,j=0)
+    /*for(int i=0,j=0,k=0;i<2;i++,j=0)
     {
         while(j<3)
         {
@@ -134,18 +151,20 @@ int main(int argc, char** argv)
                 ind[0]=i;
                 ind[1]=j;
                 ind[2]=k;
-                test.setLeaf(ind,k);
-                std::cout<<k<<" "
-                <<ind[0]<<" "
-                <<ind[1]<<" "
-                <<ind[2]<<"\ntest tree\n" 
+                //test.setLeaf(ind,a);
+                std::cout
+                <<"\nX: "<<ind[0]
+                <<"\nY: "<<ind[1]
+                <<"\nZ: "<<ind[2]
+                <<"\ntest tree Leaf: " 
                 << test.getLeaf(ind)<<std::endl;
             k++;
+            a++;
             }
         k=0;
         j++;
         }
-    }
+    }*/
     return 0;
 
 }
