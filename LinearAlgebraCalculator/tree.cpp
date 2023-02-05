@@ -24,6 +24,7 @@ template<class T>
         Leaf = dim==1;
         size = size;
 
+        //if Leaf init leaves else init nodes
         nodes = std::vector<tree<T>>() ;
         leaves = std::vector<T>();
 
@@ -40,6 +41,13 @@ template<class T>
                 <<leaves.size()<<" of "
                 <<size[0]<<std::endl;
                 leaves.push_back((T)0);
+                if (i==size[0]-1)
+                {
+                    for(int i=0;i<size[0];i++)
+                    {
+                        std::cout<<&leaves[i]<<" leaf "<<i<<" : "<<leaves[i]<<std::endl;
+                    }
+                }
             }
             else
             {
@@ -90,10 +98,16 @@ template<class T>
         tree<T> node = getNode(index);
         if(node.isleaf())
         {
-            std::cout<<"\nindex: "<<index[height-1]
-            <<"\nleaves: "<<node.leaves.size()
-            <<"\nitem: "<<node.leaves[index[height-1]]
-            <<std::endl;
+            //std::cout<<height<<"\nindex: "<<index[height-1]
+            //<<"\nleaves: "<<node.leaves.size()
+            //<<"\nitem: "<<node.leaves[index[height-1]]
+            //<<std::endl;
+
+            for (int i=0;i<height;i++)
+            {
+                //std::cout<<"leaf "<<i<<" : "<<node.leaves[index[height-1]]<<std::endl;
+            }
+
             //last index gets a 0 dim element type T if enough indicies are given
             item = node.leaves[index[height-1]];
         }
@@ -139,10 +153,10 @@ int main(int argc, char** argv)
 {
     int a = 10;
     int size[3] = {2,3,3};
-    int ind[3] = {0,0,0};
+    int ind[3] = {1,0,0};
     tree<int> test = tree<int>(3, size);
     std::cout<<"test tree 0\n" << test.getLeaf(ind)<<std::endl;
-    /*for(int i=0,j=0,k=0;i<2;i++,j=0)
+    for(int i=0,j=0,k=0;i<2;i++,j=0)
     {
         while(j<3)
         {
@@ -164,7 +178,7 @@ int main(int argc, char** argv)
         k=0;
         j++;
         }
-    }*/
+    }
     return 0;
 
 }
